@@ -12,12 +12,16 @@
   box-shadow: 2px 2px 3px grey;
   margin-right: 10px;
   cursor: pointer;
+  background-color: whitesmoke;
 }
 
 #btnPreguntar-escribir:active, #btnPreguntar-hablar:active{
   box-shadow: 0px 0px 3px grey;
 }
 
+#btnPreguntar-escribir:hover, #btnPreguntar-hablar:hover{
+  background-color: #dee9fc;
+}
 body{
   color: white;
   background-color: #222323 !important;
@@ -44,7 +48,7 @@ td img{
 }
 
 td:hover{
-  opacity: .9;
+  opacity: .4;
 }
 
 td.elegido{

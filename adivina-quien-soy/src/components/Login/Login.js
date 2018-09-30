@@ -1,45 +1,54 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import './login.css';
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state={
-      email:'',
-      pass:'',
       redirect: false,
     };
-    this.login = this.login.bind(this);
-    this.onChange = this.onChange.bind(this);
+    
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  login(){
-    if(this.state.email && this.state.pass){
-      if(this.state.email == 'nico' && this.state.pass == '123'){//PETICION API
-        // sessionStorage.setItem('userData', data);
-        this.setState({redirect: true});
-      }
+  handleSubmit(e){
+    e.preventDefault();
+    var email = e.target.email.value;
+    var pass = e.target.password.value;
+
+    //ACA HACER PETICION A NODE PARA VALIDAR LOGIN
+    if(email === 'prueba@gmail.com' && pass === '123'){
+      this.setState({redirect: true});
+    }else{
+      alert("login incorrecto");
     }
-  }
-
-  onChange(e){
-    this.setState({[e.target.name]: e.target.value});
   }
 
   render() {
     if(this.state.redirect){
-      return <Redirect to={'/home'} />;
+      return <Redirect to={'/partida'} />;
     }
     return (
-      <div className= "container">
-        <h1 id="titulo">Iniciar Sesión</h1>
-        <div className="input">
-          <input type="text" name="email" placeholder="Email" onChange={this.onChange} required />
+      <div className="Login">
+        <header className="Login-header text-center">
+          <h1 className="Login-title">Iniciar sesión</h1>
+        </header>
+        <div className="row">
+          <div className="col col-3">
+          </div>
+
+          <div className="col col-6">
+            <form className="form-group" onSubmit={this.handleSubmit}>
+              <input className="form-control" type="email" name="email" placeholder="Email" required />   
+              <input className="form-control" type="password" name="password" placeholder="Contraseña" required />
+              <input type="submit" name="btnSubmit" value="Iniciar" className="btn btn-default" />    
+            </form>
+          </div>
+
+          <div className="col col-3">
+          </div>
         </div>
-        <div className="input">
-          <input type="text" name="pass" placeholder="Contrasena" onChange={this.onChange} required />
-        </div>
-        <button type="submit" name="button" onClick={this.login}>Registrarse</button>
       </div>
     );
   }
