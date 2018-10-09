@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './css/login.css';
+import { PostApi } from '../servicios/PostApi';
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state={
       redirect: false,
+      usuario: '',
+      password: ''
     };
     
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleSubmit(e){
-    e.preventDefault();
-    var email = e.target.email.value;
-    var pass = e.target.password.value;
-
-    //ACA HACER PETICION A NODE PARA VALIDAR LOGIN
-    if(email === 'prueba@gmail.com' && pass === '123'){
-      this.setState({redirect: true});
-    }else{
-      alert("login incorrecto");
-    }
+  handleOnChange = e => {
+    this.setState({[e.target.name]: e.target.value});
+  }
+  handleSubmit = e =>{
+      e.preventDefault();
+  }
+  handleClick = e =>{
+      if(this.state.nickname && this.state.email && this.state.password){
+          PostApi('usuarios/login', this.state).then((result) => {
+              let responseJson = result;
+          });
+      }
   }
 
   render() {
@@ -30,7 +32,7 @@ class Login extends Component {
       return <Redirect to={'/partida'} />;
     }
     return (
-      <div className="Login">
+     /*<div className="Login">
         <header className="Login-header text-center">
           <h1 className="Login-title">Iniciar sesión</h1>
         </header>
@@ -49,6 +51,17 @@ class Login extends Component {
           <div className="col col-3">
           </div>
         </div>
+      </div>*/
+      <div className="container centrado">
+        <form onSubmit={this.handleSubmit}>
+            <div>
+                <input onChange={this.handleOnChange} type="text" placeholder="Email o nickname" name="usuario"/>
+            </div>
+            <div>
+                <input onChange={this.handleOnChange} type="password" placeholder="Contrasena" name="password"/>
+            </div>
+            <button onClick={this.handleClick} name="button">Iniciar Sesión</button>
+        </form>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import './Login.css';
 import Cabecera from './Cabecera';
 import ListaCaras from './ListaCaras';
+import {Redirect} from 'react-router-dom';
 
 class Partida extends Component {
   constructor(props) {
@@ -17,6 +18,9 @@ class Partida extends Component {
   }
 
   render() {
+    if(window.localStorage.getItem('token') == null){
+      return <Redirect to={'/login'} />;
+    }
     return (
       <div className="Partida">
         <Cabecera />

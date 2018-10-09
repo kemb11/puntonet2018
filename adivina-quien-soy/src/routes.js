@@ -4,6 +4,7 @@ import {BrowserRouter,  Route,  Switch} from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login';
 import Partida from './components/Partida';
+import Registro from './components/Registro';
 
 const Routes = () => (
   <BrowserRouter >
@@ -11,6 +12,7 @@ const Routes = () => (
         <Route exact path="/login" component={Login}/>
         <Route path="/home" component={Home}/>
         <Route exact path="/partida" component={Partida}/>
+        <Route path="/sign-up" component={Registro}/>
       </Switch>
   </BrowserRouter>
 );
