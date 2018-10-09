@@ -1,0 +1,35 @@
+#contenedorCaras{
+  margin:0;
+  padding: 0;
+  text-align: center;
+}
+
+.ListaCaras .itemCara{
+  cursor: pointer;
+  margin: 0;
+  padding: 15px !important;
+  display: inline-block;
+}
+
+.ListaCaras .itemCara img{
+  width: 160px;
+  height: 180px;
+  border-radius: 10%;
+  border: 2px solid white;
+}
+
+.ListaCaras .itemCara img:hover{
+  border-radius: 10%;
+  border: 2px solid white;
+  box-shadow: 0 0 10px white;
+}
+
+.ListaCaras .itemCara img:active{
+  border-radius: 10%;
+  border: 2px solid #408eff;
+  box-shadow: 0 0 10px #408eff;
+}
+
+.ListaCaras .itemDescartado{
+  opacity: .4;
+}

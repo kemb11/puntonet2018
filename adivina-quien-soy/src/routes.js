@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter,  Route,  Switch} from 'react-router-dom';
 
-import Home from './components/Home/Home';
-import Login from './components/Login/Login';
-import Partida from './components/Partida/Partida';
+import Home from './components/Home';
+import Login from './components/Login';
+import Partida from './components/Partida';
 
 const Routes = () => (
   <BrowserRouter >

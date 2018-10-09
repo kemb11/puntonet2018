@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 //import './Login.css';
+import Cabecera from './Cabecera';
+import ListaCaras from './ListaCaras';
 
 class Partida extends Component {
   constructor(props) {
@@ -17,19 +19,20 @@ class Partida extends Component {
   render() {
     return (
       <div className="Partida">
-        <header className="Login-header text-center">
-          <h1 className="Login-title">¿Quién es Quién?</h1>
-        </header>
-        <div className="row">
-          <div className="col col-3">
-          </div>
+        <Cabecera />
+        <div className="container">
+          <div className="row">
+            <div className="col col-3">
+            </div>
 
-          <div className="col col-6 text-center">
-            <h2>Adivina el personaje del contrario</h2>
-          </div>
+            <div className="col col-6 text-center">
+              <h2>Adivina el personaje del contrario</h2>
+            </div>
 
-          <div className="col col-3">
+            <div className="col col-3">
+            </div>
           </div>
+          <ListaCaras />
         </div>
       </div>
     );

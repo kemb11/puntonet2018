@@ -1,0 +1,34 @@
+.Logueado img{
+  float: left;
+  margin-right: 10px;
+}
+
+.Logueado .navbar-right{
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+
+
+.Logueado .btn.dropdown-toggle{
+  background-color: transparent;
+  color: white;
+}
+
+.Logueado .dropdown-menu{
+  background-color: #545b62;
+}
+
+.Logueado .dropdown-menu a.dropdown-item:hover{
+  background-color: #408eff;
+  color: white !important;;
+}
+
+.Logueado .dropdown-menu a.dropdown-item:active{
+  background-color: #2176f0;
+}
+
+.Logueado .dropdown-menu h5{
+  background-color: white;
+  color: #222323;
+}
