@@ -15,18 +15,19 @@ class Login extends Component {
   }
   handleOnChange = e => {
     this.setState({[e.target.name]: e.target.value});
-    console.log('handleOnChange');
   }
   handleSubmit = e =>{
       e.preventDefault();
   }
   handleClick = e =>{
-      console.log('handleClick');
       if(this.state.usuario && this.state.password){
           console.log('handleClick');
           PostApi('/usuarios/login', {'nickname': this.state.usuario, 'pass': this.state.password}).then((result) => {
               let responseJson = result;
               console.log(result);
+              if(result.auth === true){
+                this.setState({redirect: true});
+              }
           });
       }
   }
