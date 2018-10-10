@@ -4,6 +4,7 @@ import Cabecera from './Cabecera';
 import ListaCaras from './ListaCaras';
 import {Redirect} from 'react-router-dom';
 
+
 class Partida extends Component {
   constructor(props) {
     super(props);
