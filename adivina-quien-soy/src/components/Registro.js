@@ -24,7 +24,7 @@ class Registro extends Component {
             console.log(this.state);
             PostApi('/usuarios/registrar', this.state).then((result) => {
                 let responseJson = result;
-                if(responseJson.auth == true){
+                if(responseJson.auth === true){
                     window.localStorage.setItem('token', responseJson.token);
                     this.setState({redirect: true});
                 }

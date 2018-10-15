@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 import './css/listaCaras.css';
 import Cabecera from './Cabecera';
+import {GetApi} from '../servicios/GetApi';
 
 class ListaCaras extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      personajes: [],
+      cargados: false,
+    }
   }
 
+
+
   render() {
-    var names = ['http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg', 'http://www4.pictures.zimbio.com/gi/Diego+Forlan+Colombia+v+Uruguay+Round+16+2014+CVeEiRf1a6nl.jpg'];
-    var namesList = names.map(function(rutaImg){ 
-                    return <div className="itemCara" ><img src={rutaImg} /></div>;
-                  });    
+    if(this.state.cargados == false){
+      GetApi('personajes').then((result) => {
+        const responseJson = result;
+        let personajes = [];
+        responseJson.map(personaje => {
+          personajes.push(personaje);
+        })
+        this.setState({personajes: personajes, cargados: true});
+      });
+    }
+
+    var personajes = this.state.personajes.map(personaje => {
+      return <div className="itemCara" ><img src={"http://localhost:3005/imagenes/"+personaje.imagen} /></div>;
+    });
 
     return (
       <div className="ListaCaras row">
         <div id="contenedorCaras">
-         {namesList} 
+          {personajes}
         </div>
       </div>
     );
