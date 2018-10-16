@@ -6,12 +6,16 @@ import { PostApi } from '../servicios/PostApi';
 class Login extends Component {
   constructor(props){
     super(props);
+    console.log(localStorage.getItem('token'));
+    let logueado = true;
+    if (!localStorage.getItem('token')) {
+      logueado = false;
+    }
     this.state={
-      redirect: false,
+      redirect: logueado,
       usuario: '',
       password: ''
-    };
-    
+    };  
   }
   handleOnChange = e => {
     this.setState({[e.target.name]: e.target.value});
@@ -23,8 +27,6 @@ class Login extends Component {
       if(this.state.usuario && this.state.password){
           console.log('handleClick');
           PostApi('/usuarios/login', {'nickname': this.state.usuario, 'pass': this.state.password}).then((result) => {
-              let responseJson = result;
-              console.log(result);
               if(result.auth === true){
                 window.localStorage.setItem('token', result.token);
                 this.setState({redirect: true});
@@ -64,7 +66,7 @@ class Login extends Component {
                 <input onChange={this.handleOnChange} type="text" placeholder="Email o nickname" name="usuario"/>
             </div>
             <div>
-                <input onChange={this.handleOnChange} type="password" placeholder="Contrasena" name="password"/>
+                <input onChange={this.handleOnChange} type="password" placeholder="Contraseña" name="password"/>
             </div>
             <button onClick={this.handleClick} name="button">Iniciar Sesión</button>
             <hr />
