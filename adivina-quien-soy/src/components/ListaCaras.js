@@ -22,6 +22,8 @@ class ListaCaras extends Component {
         responseJson.map(personaje => {
           personajes.push(personaje);
         })
+        const { socket } = this.props;
+        socket.emit('eleccion_personaje', personajes);
         this.setState({personajes: personajes, cargados: true});
       });
     }

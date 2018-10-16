@@ -38,7 +38,7 @@ class Partida extends Component {
 
             <div className="col col-3"></div>
           </div>
-          <ListaCaras />
+          <ListaCaras socket={socket}/>
           <div className="row">
             <div className="col col-3"></div>
 

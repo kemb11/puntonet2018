@@ -16,12 +16,14 @@
   height: 180px;
   border-radius: 10%;
   border: 2px solid white;
+  background-color: #e5e5e5;
 }
 
 .ListaCaras .itemCara img:hover{
   border-radius: 10%;
   border: 2px solid white;
   box-shadow: 0 0 10px white;
+  transform:scale(1.1,1.1);
 }
 
 .ListaCaras .itemCara img:active{
