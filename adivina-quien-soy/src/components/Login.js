@@ -26,6 +26,7 @@ class Login extends Component {
               let responseJson = result;
               console.log(result);
               if(result.auth === true){
+                window.localStorage.setItem('token', result.token);
                 this.setState({redirect: true});
               }
           });

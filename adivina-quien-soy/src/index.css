@@ -13,3 +13,7 @@ a{
 a:hover{
   color: #408eff !important;
 }
+
+body, button, input, select, textarea{
+  font: 14px/1.5 Roboto, sans-serif;
+}

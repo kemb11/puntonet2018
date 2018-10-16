@@ -131,7 +131,7 @@ class Pregunta extends Component {
     const { socket } = this.props;
 
     return (
-     <div className="Login">    
+     <div className="pregunta">    
           <form id="formPregunta" className="form-group text-center" onSubmit={this.handleSubmit}>  
             <input className="form-control" onChange={this.handleOnChange} type="text" placeholder="Haz una pregunta" name="pregunta" required/> 
             <button id="btnPreguntar-escribir" type="submit" form="formPregunta" disabled={this.state.recording}>
