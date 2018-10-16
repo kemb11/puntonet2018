@@ -22,9 +22,9 @@ class Partida extends Component {
   }
 
   render() {
-    /*if(window.localStorage.getItem('token') == null){
+    if(window.localStorage.getItem('token') == null){
       return <Redirect to={'/login'} />;
-    }*/
+    }
     return (
       <div className="Partida">
         <Cabecera />

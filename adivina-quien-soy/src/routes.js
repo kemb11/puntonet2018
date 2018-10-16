@@ -9,6 +9,7 @@ import Registro from './components/Registro';
 const Routes = () => (
   <BrowserRouter >
       <Switch>
+      <Route exact path="/" component={Partida}/>
         <Route exact path="/login" component={Login}/>
         <Route path="/home" component={Home}/>
         <Route exact path="/partida" component={Partida}/>
