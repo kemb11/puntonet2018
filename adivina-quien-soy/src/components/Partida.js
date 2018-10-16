@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import './Login.css';
+import './css/partida.css';
 import Cabecera from './Cabecera';
 import ListaCaras from './ListaCaras';
 import Pregunta from './Pregunta';

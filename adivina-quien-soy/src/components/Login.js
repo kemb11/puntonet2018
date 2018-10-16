@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './css/login.css';
 import { PostApi } from '../servicios/PostApi';
 
@@ -67,6 +67,9 @@ class Login extends Component {
                 <input onChange={this.handleOnChange} type="password" placeholder="Contrasena" name="password"/>
             </div>
             <button onClick={this.handleClick} name="button">Iniciar Sesión</button>
+            <hr />
+            <span className="info">¿Nuevo en Quien es Quien? </span>
+            <Link className="info-registro"to='/sign-up'>Registrate</Link>
         </form>
       </div>
     );
