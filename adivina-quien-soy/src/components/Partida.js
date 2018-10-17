@@ -29,15 +29,6 @@ class Partida extends Component {
       <div className="Partida">
         <Cabecera />
         <div className="container">
-          <div className="row">
-            <div className="col col-3"></div>
-
-            <div className="col col-6 text-center">
-              <h2>Adivina el personaje del contrario</h2>
-            </div>
-
-            <div className="col col-3"></div>
-          </div>
           <ListaCaras socket={socket}/>
           <div className="row">
             <div className="col col-3"></div>

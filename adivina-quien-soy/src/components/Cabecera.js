@@ -21,7 +21,7 @@ class Cabecera extends Component {
       <nav className="navbar">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#"><h3>¿Quién es Quién?</h3></a>
+            <a className="navbar-brand" href="/"><h3>¿Quién es Quién?</h3></a>
           </div>
           <Logueado />
         </div>

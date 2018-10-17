@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter,  Route,  Switch} from 'react-router-dom';
 
-import Home from './components/Home';
+import Inicio from './components/Inicio';
 import Login from './components/Login';
 import Partida from './components/Partida';
 import Registro from './components/Registro';
@@ -10,9 +10,8 @@ import VerPerfil from './components/VerPerfil';
 const Routes = () => (
   <BrowserRouter >
       <Switch>
-      <Route exact path="/" component={Partida}/>
+      <Route exact path="/" component={Inicio}/>
         <Route exact path="/login" component={Login}/>
-        <Route path="/home" component={Home}/>
         <Route exact path="/partida" component={Partida}/>
         <Route path="/sign-up" component={Registro}/>
 		<Route path="/verperfil" component={VerPerfil}/>
