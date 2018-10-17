@@ -46,6 +46,10 @@ class VerPerfil extends Component {
 						<div>
 							<h4>Porcentaje de ganadas: 30%</h4>
 						</div>
+						
+						<div>
+							 <a className="navbar-brand" href="/"><h3>Volver</h3></a>
+						</div>
 					</div>
 				</div>
 			</div>
