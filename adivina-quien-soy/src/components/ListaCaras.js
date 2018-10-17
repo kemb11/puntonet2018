@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/listaCaras.css';
-import Cabecera from './Cabecera';
+//import Cabecera from './Cabecera';
 import {GetApi} from '../servicios/GetApi';
 
 class ListaCaras extends Component {
@@ -15,21 +15,21 @@ class ListaCaras extends Component {
 
 
   render() {
-    if(this.state.cargados == false){
+    if(this.state.cargados === false){
       GetApi('personajes').then((result) => {
         const responseJson = result;
         let personajes = [];
-        responseJson.map(personaje => {
-          personajes.push(personaje);
-        })
+        responseJson.map(personaje => { 
+          return(personajes.push(personaje));
+        });
         const { socket } = this.props;
         socket.emit('eleccion_personaje', personajes);
         this.setState({personajes: personajes, cargados: true});
       });
     }
 
-    var personajes = this.state.personajes.map(personaje => {
-      return <div className="itemCara" ><img src={"http://localhost:3005/imagenes/"+personaje.imagen} /></div>;
+    var personajes = this.state.personajes.map((personaje,i) => {
+      return <div key={'cara'+i} className="itemCara" ><img alt={"Imagen de " + personaje.nombre + " " + personaje.apellido} src={"http://localhost:3005/imagenes/"+personaje.imagen} /></div>;
     });
 
     return (

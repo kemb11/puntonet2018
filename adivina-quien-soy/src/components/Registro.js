@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PostApi } from '../servicios/PostApi';
 import './css/registro.css';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 class Registro extends Component {
     constructor(props){
@@ -48,6 +48,9 @@ class Registro extends Component {
                         <input onChange={this.handleOnChange} type="password" placeholder="Contrasena" name="password"/>
                     </div>
                     <button onClick={this.handleClick} name="button">Registrarse</button>
+                    <hr />
+                    <span className="info">¿Ya tienes una cuenta? </span>
+                    <Link className="info-login"to='/login'>Inicia Sesion</Link>
                 </form>
             </div>
         );
