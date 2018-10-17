@@ -12,7 +12,11 @@ form .btn{
 }
 
 form input{
+    width: 100%;
 	margin-bottom: 15px;
+    border-radius: 20px 20px 20px 20px;
+    border: 0px solid;
+    text-align: center;
 }
 .info{
     font-size: 12px;
@@ -20,4 +24,16 @@ form input{
 .info-registro{
     font-size: 12px;
     color: #007bff !important;
+}
+
+form button{
+    width: 100%;
+    margin: auto;
+    border-radius: 20px 20px 20px 20px;
+    border: 0px solid;
+}
+
+body{
+    background:url('../../img/background.gif');
+    background-size: cover;
 }
