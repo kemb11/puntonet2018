@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 //import './css/pregunta.css';
 import { PostApi } from '../servicios/PostApi';
 import RecordRTC from 'recordrtc';
@@ -16,11 +15,12 @@ class Pregunta extends Component {
   constructor(props){
     super(props);
     this.state={
-      redirect: false,
       pregunta: '',
       recordVideo: null,
       recording: false,
-      esperandoRespuesta: false
+      esperandoRespuesta: false,
+      respuesta: false,
+      textoRespuesta: false
     };
     
     this.captureUserMedia = this.captureUserMedia.bind(this);
@@ -34,9 +34,20 @@ class Pregunta extends Component {
     const { socket } = this.props;
 
     var thisAux = this;
+
     socket.on("respuesta", function(data){
-      alert("Respuesta: "+data);
-      thisAux.setState({ esperandoRespuesta: false });
+      //alert("Respuesta: "+data);
+      thisAux.setState({ 
+        esperandoRespuesta: false, 
+        textoRespuesta: data,
+        respuesta: true
+      });
+
+      setTimeout(() => {
+        thisAux.setState({ 
+          respuesta: false
+        });
+      }, 2000);
     });
   }
 
@@ -59,6 +70,11 @@ class Pregunta extends Component {
         const { socket } = this.props;
         socket.emit("pregunta", this.state);
         this.setState({ esperandoRespuesta: true });
+
+        this.setState({ 
+          textoRespuesta: "",
+          respuesta: true
+        });
       }else{
         console.log("bloqueado, esta grabando...");
       }
@@ -129,9 +145,22 @@ class Pregunta extends Component {
 
   render() {
     const { socket } = this.props;
+    var clases = '';
+    if(this.state.respuesta){
+      clases += 'fadeIn';
+    }else{
+      clases += 'fadeOut';
+    }
+
+    if(this.state.esperandoRespuesta){
+      clases += ' loading';
+    }
 
     return (
-     <div className="pregunta">    
+     <div className="pregunta">  
+          <div className="row">
+            <h2 id="pregunta_respuesta" className={clases}>{this.state.textoRespuesta}</h2>
+          </div>  
           <form id="formPregunta" className="form-group text-center" onSubmit={this.handleSubmit}>  
             <input className="form-control" onChange={this.handleOnChange} type="text" placeholder="Haz una pregunta" name="pregunta" required/> 
             <button id="btnPreguntar-escribir" type="submit" form="formPregunta" disabled={this.state.recording}>

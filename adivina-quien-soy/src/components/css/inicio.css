@@ -1,0 +1,28 @@
+.textoInicio{
+  width: 100%;
+  text-align: center;
+}
+
+.boton{
+	font-size: 25px;
+	background-color: #408eff;
+	color: white;
+	padding: 8px 15px;
+	border:none;	
+ 	border-radius:.25rem;
+	cursor: pointer;
+}
+
+.boton:hover{
+  font-size: 27px;
+  background-color: #5f9efb;
+}
+
+.boton:active{
+  background-color: #2176f0;
+}
+
+.boton:focus{
+	outline: none;
+	border: 0;
+}

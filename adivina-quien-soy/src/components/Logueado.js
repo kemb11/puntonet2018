@@ -22,7 +22,7 @@ class Logueado extends Component {
       <div className="Logueado">
         <div className="nav navbar-nav navbar-right text-center dropdown">
           <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src={iconoUsr} />
+            <img src={iconoUsr} alt="icono de usuario"/>
           </button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <h5 className="dropdown-item">nickname</h5>
