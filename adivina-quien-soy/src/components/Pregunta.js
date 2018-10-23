@@ -138,6 +138,10 @@ class Pregunta extends Component {
             socket.emit('pregunta_audio', audioDataURL);
             thisAux.setState({ recording: false });
             thisAux.setState({ esperandoRespuesta: true });
+            thisAux.setState({ 
+              textoRespuesta: "",
+              respuesta: true
+            });
             if (mediaStream) mediaStream.getTracks()[0].stop();
         });
     });
