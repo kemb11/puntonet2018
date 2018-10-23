@@ -13,10 +13,14 @@ class Logueado extends Component {
     window.localStorage.removeItem('token');
     this.setState({redirect: true});
   }
+  
+  perfil = () =>{
+	  this.setState({redirect: true,path:'/verperfil'});
+  }
 
   render() {
     if(this.state.redirect){
-      return <Redirect to={'/login'} />;
+      return <Redirect to={this.state.path} />;
     }
     return (
       <div className="Logueado">
@@ -26,7 +30,7 @@ class Logueado extends Component {
           </button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <h5 className="dropdown-item">nickname</h5>
-            <button className="dropdown-item">Ver Perfil</button>
+            <button onClick={this.perfil} className="dropdown-item">Ver Perfil</button>
             <button onClick={this.salir} className="dropdown-item">Salir</button>
           </div>
         </div>
