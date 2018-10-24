@@ -26,7 +26,7 @@ class Login extends Component {
   handleClick = e =>{
       if(this.state.usuario && this.state.password){
           console.log('handleClick');
-          PostApi('/usuarios/login', {'nickname': this.state.usuario, 'pass': this.state.password}).then((result) => {
+          PostApi('usuarios/login', null, {'nickname': this.state.usuario, 'pass': this.state.password}).then((result) => {
               if(result.auth === true){
                 window.localStorage.setItem('token', result.token);
                 this.setState({redirect: true});
