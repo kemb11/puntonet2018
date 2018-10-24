@@ -22,7 +22,7 @@ class Registro extends Component {
     handleClick = e =>{
         if(this.state.nickname && this.state.email && this.state.password){
             console.log(this.state);
-            PostApi('/usuarios/registrar', this.state).then((result) => {
+            PostApi('usuarios/registrar', null, this.state).then((result) => {
                 let responseJson = result;
                 if(responseJson.auth === true){
                     window.localStorage.setItem('token', responseJson.token);
