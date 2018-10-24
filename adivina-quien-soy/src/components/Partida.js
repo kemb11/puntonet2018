@@ -6,8 +6,8 @@ import Pregunta from './Pregunta';
 import {Redirect} from 'react-router-dom';
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("http://127.0.0.1:3005");
-
+//const socket = socketIOClient("http://127.0.0.1:3005");
+var socket;
 
 class Partida extends Component {
   constructor(props) {
@@ -15,6 +15,17 @@ class Partida extends Component {
 
     //this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.iniciarSocket();
+  }
+
+  iniciarSocket(){
+    var token = window.localStorage.getItem('token');
+    console.log("token -> "+token);
+    var socketCli = socketIOClient('http://localhost:3005', {
+      query: {token: token}
+    });
+
+    socket = socketCli;
   }
 
   handleSubmit(e){

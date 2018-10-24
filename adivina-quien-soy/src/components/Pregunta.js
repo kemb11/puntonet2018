@@ -39,7 +39,7 @@ class Pregunta extends Component {
       //alert("Respuesta: "+data);
       thisAux.setState({ 
         esperandoRespuesta: false, 
-        textoRespuesta: data,
+        textoRespuesta: data.respuesta,
         respuesta: true
       });
 

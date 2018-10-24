@@ -1,10 +1,11 @@
-export function PostApi(tipo,datos){
-    let url = 'http://localhost:3005/api';
+export function PostApi(tipo,token,datos){
+    let url = 'http://localhost:3005/api/';
     
     return new Promise((resolve,reject) => {
         fetch(url+tipo,{
             method: 'POST',
             headers:{
+                'x-access-token': token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(datos)
