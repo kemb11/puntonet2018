@@ -14,12 +14,12 @@ class Cara extends Component {
     const {socket} = this.props;
     var thisAux = this;
     socket.on("respuesta", function(data){
-      console.log("a_ocultar: "+data.a_ocultar);
+      //console.log("a_ocultar: "+data.a_ocultar);
 
       // controlar por las dudas que llegue mal el data
       if(Array.isArray(data.a_ocultar)){
-        console.log("isArray...");
-        console.log("idP: "+thisAux.state.idPersonaje);
+        //console.log("isArray...");
+        //console.log("idP: "+thisAux.state.idPersonaje);
         if(data.a_ocultar.includes(thisAux.state.idPersonaje)){
           thisAux.setState({filtrado: true});
         }
