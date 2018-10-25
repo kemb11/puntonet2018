@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/inicio.css';
 import Cabecera from './Cabecera';
+import Pie from './Pie';
 import {Redirect} from 'react-router-dom';
 
 class Inicio extends Component {
@@ -32,6 +33,7 @@ class Inicio extends Component {
             <button className="boton" onClick={this.jugar}>Jugar</button>
           </div>
         </div>
+        <Pie />
       </div>
     );
   }
