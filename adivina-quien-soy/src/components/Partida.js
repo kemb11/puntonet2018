@@ -12,6 +12,9 @@ var socket;
 class Partida extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ganaste: false
+    }
 
     //this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +31,16 @@ class Partida extends Component {
     socket = socketCli;
   }
 
+  componentDidMount(){
+    var thisAux = this;
+    socket.on("respuesta", function(data){
+      if(data.ganaste){
+        thisAux.setState({ganaste: true});
+        window.localStorage.removeItem('enPartida');
+      }
+    });
+  }
+
   handleSubmit(e){
     e.preventDefault();
   }
@@ -36,23 +49,35 @@ class Partida extends Component {
     if(window.localStorage.getItem('token') == null){
       return <Redirect to={'/login'} />;
     }
-    return (
-      <div className="Partida">
-        <Cabecera />
-        <div className="container">
-          <ListaCaras socket={socket}/>
-          <div className="row">
-            <div className="col col-3"></div>
 
-            <div className="col col-6 text-center">
-              <Pregunta socket={socket} />
-            </div>
-
-            <div className="col col-3"></div>
+    if(this.state.ganaste){
+      return (
+        <div className="Partida">
+          <Cabecera />
+          <div className="container text-center">
+            <h1>¡Ganaste!</h1>
           </div>
         </div>
-      </div>
-    );
+      );
+    }else{
+      return (
+        <div className="Partida">
+          <Cabecera />
+          <div className="container">
+            <ListaCaras socket={socket}/>
+            <div className="row">
+              <div className="col col-3"></div>
+
+              <div className="col col-6 text-center">
+                <Pregunta socket={socket} />
+              </div>
+
+              <div className="col col-3"></div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
