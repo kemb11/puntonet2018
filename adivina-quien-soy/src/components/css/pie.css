@@ -1,0 +1,17 @@
+.Pie{
+  padding: 20px;
+}
+.enPartida {
+  -webkit-animation: animacion 1s infinite;  /* Safari 4+ */
+  -moz-animation: animacion 1s infinite;  /* Fx 5+ */
+  -o-animation: animacion 1s infinite;  /* Opera 12+ */
+  animation: animacion 1s infinite;  /* IE 10+, Fx 29+ */
+
+  float: right;
+}
+
+@-webkit-keyframes animacion {
+  0%, 50% {
+    background-color:  #45e33f;
+  }
+}
