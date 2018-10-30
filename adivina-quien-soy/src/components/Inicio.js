@@ -54,7 +54,7 @@ class Inicio extends Component {
                 {this.state.ranking.map((usuario,index) => {
                   return usuario = 
                         <tr>
-                          <th scope="row">{index}</th>
+                          <th scope="row">{index+1}</th>
                           <td>{usuario.nickname}</td>
                           <td>{usuario.score}</td>
                         </tr>
