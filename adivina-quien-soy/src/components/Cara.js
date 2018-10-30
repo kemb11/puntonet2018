@@ -14,7 +14,7 @@ class Cara extends Component {
     const {socket} = this.props;
     var thisAux = this;
     socket.on("respuesta", function(data){
-      //console.log("a_ocultar: "+data.a_ocultar);
+      console.log("a_ocultar: "+data.a_ocultar);
 
       // controlar por las dudas que llegue mal el data
       if(Array.isArray(data.a_ocultar)){
@@ -35,9 +35,10 @@ class Cara extends Component {
 
     if(this.props.personaje == false){
       return(
-        <div className={clases}>
-        <img alt={"Imagen de personaje"} src={iconoPersonaje} />
-      </div>
+        <div className={clases+" cargando"}>
+          <img alt={"Imagen de personaje"} src={iconoPersonaje} />
+          <div className="loading-cara"></div>
+        </div>
       );
     }else{    
       return (
