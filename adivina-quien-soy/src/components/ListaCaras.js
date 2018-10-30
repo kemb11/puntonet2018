@@ -36,7 +36,7 @@ class ListaCaras extends Component {
   }
 
   componentDidMount(){
-    this.cargarPersonajes();
+    //this.cargarPersonajes();
   }
 
   render() {

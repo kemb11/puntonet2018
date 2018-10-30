@@ -35,9 +35,10 @@ class Cara extends Component {
 
     if(this.props.personaje == false){
       return(
-        <div className={clases}>
-        <img alt={"Imagen de personaje"} src={iconoPersonaje} />
-      </div>
+        <div className={clases+" cargando"}>
+          <img alt={"Imagen de personaje"} src={iconoPersonaje} />
+          <h3 className="loading"></h3>
+        </div>
       );
     }else{    
       return (
