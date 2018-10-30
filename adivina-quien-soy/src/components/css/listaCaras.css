@@ -35,3 +35,27 @@
 .ListaCaras .itemDescartado{
   opacity: .4;
 }
+
+.loading-cara{
+  /* centrar en la imagen */
+  position: absolute;
+  top: 37%;
+  left: 37%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  
+  border: 10px solid #2176f0; /* Light grey */
+  border-top: 10px solid transparent; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+}
+
+.ListaCaras .itemCara.cargando {
+    position: relative;
+    text-align: center;
+}
+
