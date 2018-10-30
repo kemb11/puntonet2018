@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
-
 import Routes from './routes';
+import {PostApi} from './servicios/PostApi';
 
 class App extends Component {
   	constructor(props) {
 	    super(props);
-	    this.state = {
-	      endpoint: "http://127.0.0.1:3005"
-	    };
   	}
 
   	// componentDidMount es una funcion propia de react
-  	/*componentDidMount() {
-	    const { endpoint } = this.state;
-	    const socket = socketIOClient(endpoint);
-	    socket.on("respuesta", function(data){
-	    	console.log("Respuesta: "+data);
-    	});
- 	}*/
+  	componentDidMount() {
+  		// Comprobar si el token guardado en localstorage sigue vigente
+  		var token = window.localStorage.getItem('token'); 
+	    PostApi('usuarios/tokenExpiro', token).then((respuesta) => {
+	        if(respuesta.expiro){
+        	 	window.localStorage.removeItem('token');        
+	        }
+      	});
+ 	}
 
   	render() {
 	    return (

@@ -7,11 +7,11 @@ class ListaCaras extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      personajes: [],
+      personajes: false,
       cargados: false,
     }
 
-    this.cargarPersonajes();
+    
   }
 
   cargarPersonajes(){
@@ -36,7 +36,7 @@ class ListaCaras extends Component {
   }
 
   componentDidMount(){
-    
+    this.cargarPersonajes();
   }
 
   render() {
@@ -45,13 +45,36 @@ class ListaCaras extends Component {
     var filtrados = this.state.filtrados;
     //var filtrados = ["5bbe12ee00641916541d4f95"];
     console.log("filtrados: "+filtrados);
-    var personajes = this.state.personajes.map((personaje,i) => {     
+
+    var personajes = [];
+    if(this.state.personajes == false){
+      //alert("personajes = false");
+      var totalPersonajes = 9;
+      for (var i = 0; i < totalPersonajes; i++) {
+        personajes.push(<Cara personaje={false} filtrado={false} socket={socket} />);
+      }
+      console.log("personajes: "+personajes);
+    }else{
+      var personajes = this.state.personajes.map((personaje,i) => {     
+          var filtrado = false;
+          if(filtrados.includes(personaje._id)){
+            filtrado = true;
+          } 
+          return <Cara personaje={personaje} filtrado={filtrado} socket={socket} />;       
+      });
+
+      //console.log(this.state.personajes);
+      /*for (var i = 0; i < this.state.personajes.length; i++) {
+
+        var personaje = this.state.personajes[i];
+        console.log("personaje"+personaje);
         var filtrado = false;
-        if(filtrados.includes(personaje._id)){
-          filtrado = true;
-        } 
-        return <Cara personaje={personaje} filtrado={filtrado} socket={socket} />;       
-    });
+          if(filtrados.includes(personaje._id)){
+            filtrado = true;
+          } 
+          return (<Cara personaje={personaje} filtrado={filtrado} socket={socket} />); 
+      }*/
+    }
 
     return (
       <div className="ListaCaras">

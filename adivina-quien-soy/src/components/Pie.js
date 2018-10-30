@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/pie.css';
 import {Redirect} from 'react-router-dom';
+import {PostApi} from '../servicios/PostApi';
 
 class Pie extends Component {
   constructor(props) {
@@ -11,11 +12,13 @@ class Pie extends Component {
   }
 
   componentDidMount(){
-    var enPartida = window.localStorage.getItem('enPartida');
-
-    if(enPartida){
-      this.setState({mostrar: true});
-    }
+    // Comprobar si el token guardado en localstorage sigue vigente, y fijarse si esta en partida(es para cuando se baja el servidor)
+      var token = window.localStorage.getItem('token'); 
+      PostApi('usuarios/enPartida', token).then((respuesta) => {
+        if(respuesta.enPartida){
+          this.setState({mostrar: true});
+        }
+      });
   }
 
   redirigir = () =>{
