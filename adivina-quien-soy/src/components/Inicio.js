@@ -50,7 +50,14 @@ class Inicio extends Component {
                 </tr>
               </thead>
               <tbody>
-                {!this.state.ranking_cargado ? "..." : null}
+                {!this.state.ranking_cargado 
+                    ?<tr>
+                      <td></td>
+                      <td><div className="loading-ranking"></div></td>
+                      <td></td>
+                    </tr> 
+                    : null
+                }
                 {this.state.ranking.map((usuario,index) => {
                   return usuario = 
                         <tr>
