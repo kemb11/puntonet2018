@@ -7,6 +7,7 @@ import {Redirect} from 'react-router-dom';
 import socketIOClient from "socket.io-client";
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { PostApi } from '../servicios/PostApi';
 
 //const socket = socketIOClient("http://127.0.0.1:3005");
 var socket;
@@ -39,6 +40,10 @@ class Partida extends Component {
     var thisAux = this;
     socket.on("respuesta", function(data){
       if(data.ganaste){
+        var token = window.localStorage.getItem('token'); 
+        PostApi('usuarios/gano_partida',token).then((result) => {
+          console.log(result);
+        })
         thisAux.setState({ganaste: true});
       }
 
