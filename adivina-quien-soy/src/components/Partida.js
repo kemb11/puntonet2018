@@ -6,6 +6,8 @@ import Pregunta from './Pregunta';
 import {Redirect} from 'react-router-dom';
 import socketIOClient from "socket.io-client";
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 //const socket = socketIOClient("http://127.0.0.1:3005");
 var socket;
 
@@ -13,7 +15,9 @@ class Partida extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ganaste: false
+      ganaste: false,
+      perdiste: false,
+      mensaje: ""
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -36,7 +40,10 @@ class Partida extends Component {
     socket.on("respuesta", function(data){
       if(data.ganaste){
         thisAux.setState({ganaste: true});
-        window.localStorage.removeItem('enPartida');
+      }
+
+      if(data.perdiste){
+        thisAux.setState({perdiste: true, mensaje: data.respuesta});
       }
     });
   }
@@ -50,19 +57,37 @@ class Partida extends Component {
       return <Redirect to={'/login'} />;
     }
 
-    if(this.state.ganaste){
+    if(this.state.ganaste || this.state.perdiste){
+      var ganoPerdio;
+      var clases = "container text-center";
+      if(this.state.ganaste ){
+        ganoPerdio = "¡Ganaste!";
+        clases += " ganaste";
+      }else{
+        ganoPerdio = this.state.mensaje;
+      }
       return (
-        <div className="Partida">
-          <Cabecera />
-          <div className="container text-center">
-            <h1>¡Ganaste!</h1>
+          <div className="Partida">
+            <Cabecera />
+            <ReactCSSTransitionGroup
+              transitionName="example"
+              transitionAppear={true}
+              transitionAppearTimeout={1000}
+              transitionEnter={false}
+              transitionLeave={false}>
+              
+                <div className={clases}>
+                  <h1>{ganoPerdio}</h1>
+                </div>
+            </ReactCSSTransitionGroup>
           </div>
-        </div>
       );
     }else{
       return (
         <div className="Partida">
           <Cabecera />
+          
+
           <div className="container">
             <ListaCaras socket={socket}/>
             <div className="row">
