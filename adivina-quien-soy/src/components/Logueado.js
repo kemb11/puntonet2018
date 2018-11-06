@@ -6,20 +6,24 @@ import {Redirect} from 'react-router-dom';
 class Logueado extends Component {
   constructor(props) {
     super(props);
-    this.state = {redirect: false};
+    this.state = {
+      redirect: false,
+      path: "/"
+    };
   }
 
   salir = () =>{
     window.localStorage.removeItem('token');
-    this.setState({redirect: true});
+    this.setState({redirect: true, path:'/'});
   }
   
   perfil = () =>{
-	  this.setState({redirect: true,path:'/verperfil'});
+	  this.setState({redirect: true, path:'/verperfil'});
   }
 
   render() {
-    if(this.state.redirect){
+    var token = window.localStorage.getItem('token');
+    if(this.state.redirect || token === 'undefined' || token === null){
       return <Redirect to={this.state.path} />;
     }
     return (

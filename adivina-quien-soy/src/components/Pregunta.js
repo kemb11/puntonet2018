@@ -36,7 +36,7 @@ class Pregunta extends Component {
     var thisAux = this;
 
     socket.on("respuesta", function(data){
-      //alert("Respuesta: "+data);
+      console.log("Respuesta: "+JSON.stringify(data));
       thisAux.setState({ 
         esperandoRespuesta: false, 
         textoRespuesta: data.respuesta,

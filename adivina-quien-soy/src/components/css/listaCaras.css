@@ -7,13 +7,13 @@
 .ListaCaras .itemCara{
   cursor: pointer;
   margin: 0;
-  padding: 15px !important;
+  padding: 12px !important;
   display: inline-block;
 }
 
 .ListaCaras .itemCara img{
-  width: 160px;
-  height: 180px;
+  width: 130px;
+  height: 140px;
   border-radius: 10%;
   border: 2px solid white;
   background-color: #e5e5e5;
