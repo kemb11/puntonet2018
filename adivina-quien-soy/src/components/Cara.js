@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import iconoPersonaje from '../img/personaje.png';
+import ImageLoader from "react-loading-image";
 
 class Cara extends Component {
   constructor(props) {
@@ -36,14 +37,30 @@ class Cara extends Component {
     if(this.props.personaje == false){
       return(
         <div className={clases+" cargando"}>
-          <img alt={"Imagen de personaje"} src={iconoPersonaje} />
+          <img src={iconoPersonaje} />
           <div className="loading-cara"></div>
         </div>
       );
     }else{    
-      return (
+      /*return (
         <div className={clases}>
-          <img alt={"Imagen de " + this.props.personaje.nombre + " " + this.props.personaje.apellido} src={"http://localhost:3005/imagenes/"+this.props.personaje.imagen} />
+          <img src={"http://localhost:3005/imagenes/"+this.props.personaje.imagen} />
+        </div>
+      );*/
+
+      //////////
+      return(
+        <div className={clases}>
+          <ImageLoader
+            src={"http://localhost:3005/imagenes/"+this.props.personaje.imagen}
+            loading={() => 
+              <div className={"cargando"}>
+                <img src={iconoPersonaje} />
+                <div className="loading-cara"></div>
+              </div>
+            }
+            error={() => <div>Error</div>}
+          />
         </div>
       );
     }

@@ -54,7 +54,7 @@
           animation: spin 2s linear infinite;
 }
 
-.ListaCaras .itemCara.cargando {
+.ListaCaras .itemCara.cargando, .ListaCaras .itemCara .cargando {
     position: relative;
     text-align: center;
 }

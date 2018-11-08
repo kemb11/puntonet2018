@@ -47,7 +47,7 @@ class ListaCaras extends Component {
     var personajes = [];
     if(this.state.personajes == false){
       //alert("personajes = false");
-      var totalPersonajes = 21;
+      var totalPersonajes = 20;
       for (var i = 0; i < totalPersonajes; i++) {
         personajes.push(<Cara key={"cara_"+i} personaje={false} filtrado={false} socket={socket} />);
       }
