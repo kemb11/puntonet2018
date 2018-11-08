@@ -5,6 +5,7 @@ export function GetApi(tipo,datos){
         fetch(url+tipo,{
             method: 'GET',
             headers:{
+				'x-access-token': datos,
                 'Content-Type': 'application/json'
             }
         })
