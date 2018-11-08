@@ -38,7 +38,7 @@ class Inicio extends Component {
             Cada personaje tiene un conjunto de características, como por ejemplo color de pelo, edad, sexo entre otras.
             Con cada pregunta iras filtrando los personajes, aumentando asi tus posibilidades de acierto.</h3>
 
-            <button className="boton" onClick={this.jugar}>Jugar</button>
+            <button className="boton normal" onClick={this.jugar}>Jugar</button>
           </div>
           <div className="ranking">
             <table class="table table-hover table-dark">

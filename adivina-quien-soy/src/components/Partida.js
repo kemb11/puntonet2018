@@ -8,6 +8,7 @@ import socketIOClient from "socket.io-client";
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { PostApi } from '../servicios/PostApi';
+import Modal from './Modal';
 
 //const socket = socketIOClient("http://127.0.0.1:3005");
 var socket;
@@ -18,7 +19,9 @@ class Partida extends Component {
     this.state = {
       ganaste: false,
       perdiste: false,
-      mensaje: ""
+      mensaje: "",
+      showModal: false,
+      cargandoModal: false
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -57,9 +60,40 @@ class Partida extends Component {
     e.preventDefault();
   }
 
+  showModal = () => {
+    console.log("showModal");
+    this.setState({ showModal: true });
+    console.log("state.showModal: "+this.state.showModal);
+  };
+
+  hideModal = () => {
+    console.log("hideModal");
+    this.setState({ showModal: false });
+    console.log("state.showModal: "+this.state.showModal);
+  };
+
+  abandonarPartida = (e) =>{
+    //alert("Abandonando partida...");
+    this.setState({ cargandoModal: true });
+
+    var token = window.localStorage.getItem('token');
+    PostApi('usuarios/abandonarPartida',token).then((result) => {
+      if(result.ok){
+        this.setState({showModal: false });
+        this.setState({redirect: true, path:'/'}); // redirecciona a inicio
+      }else{
+        alert("Ha ocurrido un error");
+      }
+    })
+  }
+
   render() {
     if(window.localStorage.getItem('token') == null){
       return <Redirect to={'/login'} />;
+    }
+
+    if(this.state.redirect){
+      return <Redirect to={this.state.path} />;
     }
 
     if(this.state.ganaste || this.state.perdiste){
@@ -96,15 +130,28 @@ class Partida extends Component {
           <div className="container">
             <ListaCaras socket={socket}/>
             <div className="row">
-              <div className="col col-3"></div>
+              <div className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12"></div>
 
-              <div className="col col-6 text-center">
+              <div className="col  col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center">
                 <Pregunta socket={socket} />
               </div>
 
-              <div className="col col-3"></div>
+              <div id="divAbandonar" className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 text-center">
+                <button id="btnAbandonar" className="boton rojo" disabled={this.state.recording} onClick={this.showModal}>
+                  Abandonar
+                </button> 
+              </div>
             </div>
           </div>
+
+          <Modal key="modal-abandonarPartida" 
+            show={this.state.showModal} // cambiar a true para mostrar modal
+            handleAceptar={this.abandonarPartida} // funcion a ejecutar al hacer click en el boton aceptar
+            handleCancelar={this.hideModal} // funcion a ejecutar al hacer click en el boton cancelar
+            cargando={this.state.cargandoModal} // si es true se muestra la rueda de "cargando"
+            titulo="Abandonar partida"
+            texto="¿Estás seguro?, si abandonas la partida se te restaran puntos" >
+          </Modal>
         </div>
       );
     }

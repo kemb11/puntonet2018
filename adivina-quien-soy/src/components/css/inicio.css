@@ -5,8 +5,7 @@
 }
 
 .boton{
-	font-size: 25px;
-	background-color: #408eff;
+	font-size: 25px;	
 	color: white;
 	padding: 8px 15px;
 	border:none;	
@@ -14,18 +13,35 @@
 	cursor: pointer;
 }
 
-.boton:hover{
-  background-color: #5f9efb;
-}
-
-.boton:active{
-  background-color: #2176f0;
-}
-
 .boton:focus{
 	outline: none;
 	border: 0;
 }
+
+.boton.normal{
+	background-color: #408eff;
+}
+
+.boton.normal:hover{
+  background-color: #5f9efb;
+}
+
+.boton.normal:active{
+  background-color: #2176f0;
+}
+
+.boton.rojo{
+	background-color: #ff1515;
+}
+
+.boton.rojo:hover{
+  background-color: #fd1010;
+}
+
+.boton.rojo:active{
+  background-color: red;
+}
+
 .ranking{
 	margin: 32px auto;
 	width: 50%;

@@ -33,7 +33,7 @@ class Pie extends Component {
     if(this.state.mostrar){
       return (
         <div className="Pie">
-          <button onClick={this.redirigir} className="boton enPartida">Partida en curso</button>
+          <button onClick={this.redirigir} className="boton normal enPartida">Partida en curso</button>
         </div>
       );
     }else{
