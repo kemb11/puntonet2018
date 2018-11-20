@@ -19,8 +19,9 @@ class Pregunta extends Component {
       recordVideo: null,
       recording: false,
       esperandoRespuesta: false,
-      respuesta: false,
-      textoRespuesta: false
+      mostrarResp: false,
+      respuesta: false, 
+      noEntendio: false
     };
     
     this.captureUserMedia = this.captureUserMedia.bind(this);
@@ -37,17 +38,19 @@ class Pregunta extends Component {
 
     socket.on("respuesta", function(data){
       console.log("Respuesta: "+JSON.stringify(data));
+      
       thisAux.setState({ 
         esperandoRespuesta: false, 
-        textoRespuesta: data.respuesta,
-        respuesta: true
+        mostrarResp: true,
+        respuesta: data.respuesta,
+        noEntendio: data.noEntendio
       });
 
       setTimeout(() => {
         thisAux.setState({ 
-          respuesta: false
+          mostrarResp: false
         });
-      }, 2000);
+      }, 800);
     });
   }
 
@@ -70,11 +73,6 @@ class Pregunta extends Component {
         const { socket } = this.props;
         socket.emit("pregunta", this.state);
         this.setState({ esperandoRespuesta: true });
-
-        this.setState({ 
-          textoRespuesta: "",
-          respuesta: true
-        });
       }else{
         console.log("bloqueado, esta grabando...");
       }
@@ -138,10 +136,7 @@ class Pregunta extends Component {
             socket.emit('pregunta_audio', audioDataURL);
             thisAux.setState({ recording: false });
             thisAux.setState({ esperandoRespuesta: true });
-            thisAux.setState({ 
-              textoRespuesta: "",
-              respuesta: true
-            });
+            
             if (mediaStream) mediaStream.getTracks()[0].stop();
         });
     });
@@ -149,21 +144,43 @@ class Pregunta extends Component {
 
   render() {
     const { socket } = this.props;
-    var clases = '';
-    if(this.state.respuesta){
-      clases += 'fadeIn';
+
+    var clasesEsp;
+    if(this.state.esperandoRespuesta){
+      clasesEsp = 'mostrar loading';
     }else{
-      clases += 'fadeOut';
+      clasesEsp = 'ocultar';
     }
 
-    if(this.state.esperandoRespuesta){
-      clases += ' loading';
+    var resp = "";
+    var clasesResp = 'transicion';
+    if(this.state.mostrarResp){
+      clasesResp += ' mostrar';
+    }else{
+      clasesResp += ' ocultar';
+    }   
+
+    // Si no entendio la pregunta, en this.state.respuesta guarda el texto pidiendo que pregunte de nuevo
+    if(this.noEntendio){
+      resp = this.state.respuesta
+    }else{
+      // SI no es true o false
+      if(this.state.respuesta){
+        clasesResp += ' respSI';
+        resp = "Si";
+      }else{
+        clasesResp += ' respNO';
+        resp = "No";
+      }
     }
 
     return (
      <div className="pregunta">  
           <div className="row">
-            <h2 id="pregunta_respuesta" className={clases}>{this.state.textoRespuesta}</h2>
+            <div id="preg_resp_div">
+              <p id="pregunta_respuesta" className={clasesResp}>{resp}</p>
+              <p className={clasesEsp}></p>
+            </div>
           </div>  
           <form id="formPregunta" className="form-group text-center" onSubmit={this.handleSubmit}>  
             <input className="form-control" onChange={this.handleOnChange} type="text" placeholder="Haz una pregunta" name="pregunta" required/> 

@@ -43,6 +43,7 @@ class Partida extends Component {
     var thisAux = this;
     socket.on("respuesta", function(data){
       if(data.ganaste){
+        console.log("PostApi('usuarios/gano_partida");
         var token = window.localStorage.getItem('token'); 
         PostApi('usuarios/gano_partida',token).then((result) => {
           console.log(result);
@@ -51,6 +52,11 @@ class Partida extends Component {
       }
 
       if(data.perdiste){
+        console.log("PostApi('usuarios/perdio_partida");
+        var token = window.localStorage.getItem('token'); 
+        PostApi('usuarios/perdio_partida',token).then((result) => {
+          console.log(result);
+        })
         thisAux.setState({perdiste: true, mensaje: data.respuesta});
       }
     });
