@@ -3,13 +3,16 @@ import './css/verperfil.css';
 import Cabecera from './Cabecera';
 import {PostApi} from '../servicios/PostApi';
 import {GetApi} from '../servicios/GetApi';
+var CanvasJSReact = require('./canvasjs.react');
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class VerPerfil extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			redirect: false,
-			user: {nickname: "", email: ""}
+			user: null
 		};
 	}
 	
@@ -23,38 +26,47 @@ class VerPerfil extends Component {
 	}
 
 	render() {	
+		var informacion;
+		if(this.state.user !== null){
+			const options = {
+			theme: "dark2",
+			animationEnabled: true,
+			backgroundColor: "transparent",
+			data: [{
+				type: "pie",
+				showInLegend: true,
+				legendText: "{label}",
+				toolTipContent: "{label}: <strong>{y}%</strong>",
+				indexLabel: "{y}%",
+				indexLabelPlacement: "inside",
+					dataPoints: [
+						{ label: "Ganadas",  y: this.state.user.ganadas  },
+						{ label: "Perdidas", y: this.state.user.perdidas  },
+						{ label: "Abandonadas", y: this.state.user.abandonadas  }
+						
+					]
+				}
+				]
+			}
+			informacion = (
+				<div>
+					<div>
+						<h4>Nickname: {this.state.user.nickname}</h4>
+					</div>
+					
+					<div>
+						<h4>Correo: {this.state.user.email}</h4>
+					</div>
+					<CanvasJSChart options = {options}/>
+				</div>
+			)
+		}
 		return (
 			<div className="VerPerfil">
 				<Cabecera />	
-				<div className="container">
-					<div className="col col-6 text-center">
-						<center><h2>Ver Perfil del usuario</h2></center>
-					</div>	
-						
+				<div className="container">	
 					<div classname="row">
-						<div>
-							<h4>Nickname: {this.state.user.nickname}</h4>
-						</div>
-						
-						<div>
-							<h4>Correo: {this.state.user.email}</h4>
-						</div>
-						
-						<div>
-							<h4>Partidas jugadas: 10</h4>
-						</div>
-						
-						<div>
-							<h4>Partidas ganadas: 3</h4>
-						</div>
-						
-						<div>
-							<h4>Partidas perdidas: 7</h4>
-						</div>
-						
-						<div>
-							<h4>Porcentaje de ganadas: 30%</h4>
-						</div>
+						{informacion}
 					</div>
 				</div>
 			</div>		
