@@ -50,7 +50,7 @@ class Pregunta extends Component {
         thisAux.setState({ 
           mostrarResp: false
         });
-      }, 800);
+      }, 1000);
     });
   }
 
@@ -161,8 +161,10 @@ class Pregunta extends Component {
     }   
 
     // Si no entendio la pregunta, en this.state.respuesta guarda el texto pidiendo que pregunte de nuevo
-    if(this.noEntendio){
-      resp = this.state.respuesta
+    if(this.state.noEntendio){
+      console.log("if(this.noEntendio)");
+      resp = this.state.respuesta;
+      clasesResp += ' noEntendio';
     }else{
       // SI no es true o false
       if(this.state.respuesta){

@@ -1,5 +1,5 @@
 export function PostApi(tipo,token,datos){
-    let url = 'http://localhost:3005/api/';
+    let url = 'http://192.168.1.3:3005/api/';
     
     return new Promise((resolve,reject) => {
         fetch(url+tipo,{

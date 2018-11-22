@@ -21,7 +21,8 @@ class Partida extends Component {
       perdiste: false,
       mensaje: "",
       showModal: false,
-      cargandoModal: false
+      cargandoModal: false,
+      cantPreg: false
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -32,7 +33,7 @@ class Partida extends Component {
   iniciarSocket(){
     var token = window.localStorage.getItem('token');
     console.log("token -> "+token);
-    var socketCli = socketIOClient('http://localhost:3005', {
+    var socketCli = socketIOClient('http://192.168.1.3:3005', {
       query: {token: token}
     });
 
@@ -40,11 +41,12 @@ class Partida extends Component {
   }
 
   componentDidMount(){
+    var token = window.localStorage.getItem('token'); 
+
     var thisAux = this;
     socket.on("respuesta", function(data){
       if(data.ganaste){
         console.log("PostApi('usuarios/gano_partida");
-        var token = window.localStorage.getItem('token'); 
         PostApi('usuarios/gano_partida',token).then((result) => {
           console.log(result);
         })
@@ -52,13 +54,22 @@ class Partida extends Component {
       }
 
       if(data.perdiste){
-        console.log("PostApi('usuarios/perdio_partida");
-        var token = window.localStorage.getItem('token'); 
+        console.log("PostApi('usuarios/perdio_partida");        
         PostApi('usuarios/perdio_partida',token).then((result) => {
           console.log(result);
         })
         thisAux.setState({perdiste: true, mensaje: data.respuesta});
       }
+    });
+
+    this.cargarCantPreg(token);
+  }
+
+  cargarCantPreg(token){
+    PostApi('usuarios/cantPreg', token).then((data) => {
+      console.log("cargarCantPreg: "+JSON.stringify(data));
+
+      this.setState({cantPreg: data.cantPreg});
     });
   }
 
@@ -130,8 +141,7 @@ class Partida extends Component {
     }else{
       return (
         <div className="Partida">
-          <Cabecera />
-          
+          <Cabecera />          
 
           <div className="container">
             <ListaCaras socket={socket}/>

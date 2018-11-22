@@ -50,6 +50,10 @@
   animation: dots 1s steps(5, end) infinite;
 }
 
+.noEntendio{
+  font-size: 25px;  
+}
+
 .respNO, .respSI{
   font-size: 25px;
   color: white;

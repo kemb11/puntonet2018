@@ -1,6 +1,6 @@
 .Partida{
-    background:url('../../img/background.gif');
-    background-size: cover;
+    /*background:url('../../img/background.gif');
+    background-size: cover;*/
 }
 
 @keyframes jump {
