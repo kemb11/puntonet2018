@@ -33,7 +33,7 @@ class Partida extends Component {
   iniciarSocket(){
     var token = window.localStorage.getItem('token');
     console.log("token -> "+token);
-    var socketCli = socketIOClient('http://192.168.1.3:3005', {
+    var socketCli = socketIOClient('http://localhost:3005', {
       query: {token: token}
     });
 
