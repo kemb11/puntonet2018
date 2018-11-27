@@ -9,6 +9,8 @@ import socketIOClient from "socket.io-client";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { PostApi } from '../servicios/PostApi';
 import Modal from './Modal';
+import iconoPersonaje from '../img/personaje.png';
+import ImageLoader from "react-loading-image";
 
 //const socket = socketIOClient("http://127.0.0.1:3005");
 var socket;
@@ -22,7 +24,8 @@ class Partida extends Component {
       mensaje: "",
       showModal: false,
       cargandoModal: false,
-      cantPreg: false
+      cantPreg: false,
+      img_personaje: ''
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -50,7 +53,7 @@ class Partida extends Component {
         PostApi('usuarios/gano_partida',token).then((result) => {
           console.log(result);
         })
-        thisAux.setState({ganaste: true});
+        thisAux.setState({ganaste: true, img_personaje: data.personaje});
       }
 
       if(data.perdiste){
@@ -58,11 +61,13 @@ class Partida extends Component {
         PostApi('usuarios/perdio_partida',token).then((result) => {
           console.log(result);
         })
-        thisAux.setState({perdiste: true, mensaje: data.respuesta});
+        thisAux.setState({perdiste: true, mensaje: data.respuesta, img_personaje: data.personaje});
       }
     });
 
-    this.cargarCantPreg(token);
+    if(token){
+      this.cargarCantPreg(token);
+    }
   }
 
   cargarCantPreg(token){
@@ -134,6 +139,18 @@ class Partida extends Component {
               
                 <div className={clases}>
                   <h1>{ganoPerdio}</h1>
+                </div>
+                <div>
+                  <ImageLoader
+                    src={"http://localhost:3005/imagenes/"+this.state.img_personaje}
+                    loading={() => 
+                      <div className={"cargando"}>
+                        <img src={iconoPersonaje} />
+                        <div className="loading-cara"></div>
+                      </div>
+                    }
+                    error={() => <div>Error</div>}
+                  />
                 </div>
             </ReactCSSTransitionGroup>
           </div>

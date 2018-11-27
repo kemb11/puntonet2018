@@ -37,7 +37,7 @@ class Login extends Component {
 
   render() {
     if(this.state.redirect){
-      return <Redirect to={'/partida'} />;
+      return <Redirect to={'/'} />;
     }
     return (
      /*<div className="Login">
