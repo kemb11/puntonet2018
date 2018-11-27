@@ -66,7 +66,7 @@ class Partida extends Component {
     });
 
     if(token){
-      this.cargarCantPreg(token);
+      //this.cargarCantPreg(token);
     }
   }
 
