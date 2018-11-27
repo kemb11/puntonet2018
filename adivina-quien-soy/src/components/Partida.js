@@ -25,7 +25,7 @@ class Partida extends Component {
       showModal: false,
       cargandoModal: false,
       cantPreg: false,
-      img_personaje: ''
+      personaje: ''
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -53,7 +53,7 @@ class Partida extends Component {
         PostApi('usuarios/gano_partida',token).then((result) => {
           console.log(result);
         })
-        thisAux.setState({ganaste: true, img_personaje: data.personaje});
+        thisAux.setState({ganaste: true, personaje: data.personaje});
       }
 
       if(data.perdiste){
@@ -61,7 +61,7 @@ class Partida extends Component {
         PostApi('usuarios/perdio_partida',token).then((result) => {
           console.log(result);
         })
-        thisAux.setState({perdiste: true, mensaje: data.respuesta, img_personaje: data.personaje});
+        thisAux.setState({perdiste: true, mensaje: data.respuesta, personaje: data.personaje});
       }
     });
 
@@ -119,6 +119,12 @@ class Partida extends Component {
     }
 
     if(this.state.ganaste || this.state.perdiste){
+      var nomP = this.state.personaje.nombre; // poner primer letra en mayuscula
+      var apeP = this.state.personaje.apellido; // poner primer letra en mayuscula
+
+      var nomP = nomP.charAt(0).toUpperCase() + nomP.slice(1); // poner primer letra en mayuscula
+      var apeP = apeP.charAt(0).toUpperCase() + apeP.slice(1); // poner primer letra en mayuscula
+
       var ganoPerdio;
       var clases = "container text-center";
       if(this.state.ganaste ){
@@ -140,9 +146,9 @@ class Partida extends Component {
                 <div className={clases}>
                   <h1>{ganoPerdio}</h1>
                 </div>
-                <div>
+                <div className="cara_fin_partida">
                   <ImageLoader
-                    src={"http://localhost:3005/imagenes/"+this.state.img_personaje}
+                    src={"http://localhost:3005/imagenes/"+this.state.personaje.imagen}
                     loading={() => 
                       <div className={"cargando"}>
                         <img src={iconoPersonaje} />
@@ -151,6 +157,7 @@ class Partida extends Component {
                     }
                     error={() => <div>Error</div>}
                   />
+                  <h3>{"Es "+nomP+" "+apeP}</h3>
                 </div>
             </ReactCSSTransitionGroup>
           </div>
