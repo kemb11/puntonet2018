@@ -62,3 +62,19 @@
   animation: spin 2s linear infinite;
   margin: 0 auto;
 }
+
+.cara_fin_partida{
+  cursor: pointer;
+  padding: 12px !important;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.cara_fin_partida img{
+  height: 400px;
+  width: 400px;  
+  margin-bottom: 10px;
+  border-radius: 10%;
+  border: 2px solid white;
+  background-color: #e5e5e5;
+}
