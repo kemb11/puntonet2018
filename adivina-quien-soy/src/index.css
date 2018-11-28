@@ -4,6 +4,7 @@ body {
   font-family: 'Roboto Mono', monospace !important;
   color: white !important;
   background-color: #222323 !important;
+  padding-bottom: 10px;
 }
 
 a{

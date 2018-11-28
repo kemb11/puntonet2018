@@ -18,7 +18,6 @@ class Pregunta extends Component {
       pregunta: '',
       recordVideo: null,
       recording: false,
-      esperandoRespuesta: false,
       mostrarResp: false,
       respuesta: false, 
       noEntendio: false
@@ -40,11 +39,12 @@ class Pregunta extends Component {
       console.log("Respuesta: "+JSON.stringify(data));
       
       thisAux.setState({ 
-        esperandoRespuesta: false, 
         mostrarResp: true,
         respuesta: data.respuesta,
         noEntendio: data.noEntendio
       });
+
+      thisAux.props.setEsperandoRespuesta(false);
 
       setTimeout(() => {
         thisAux.setState({ 
@@ -68,11 +68,11 @@ class Pregunta extends Component {
       e.preventDefault();
 
       // si no esta grabando o esperando respuesta
-      if(!this.state.recording && !this.state.esperandoRespuesta){
+      if(!this.state.recording && !this.props.esperandoRespuesta){
         console.log("Enviar pregunta a API...");
         const { socket } = this.props;
         socket.emit("pregunta", this.state);
-        this.setState({ esperandoRespuesta: true });
+        this.props.setEsperandoRespuesta(true);
       }else{
         console.log("bloqueado, esta grabando...");
       }
@@ -99,9 +99,12 @@ class Pregunta extends Component {
   }
 
   startRecord() {
-    if(!this.state.esperandoRespuesta){
+    if(!this.props.esperandoRespuesta){
       console.log("StartRecord...");
+      var thisAux = this;
       this.captureUserMedia((stream) => {
+        thisAux.props.setGrabando(true);
+
         console.log("New RecordRTC...");
         mediaStream = stream;
         recordVideo = RecordRTC(stream, { 
@@ -122,6 +125,7 @@ class Pregunta extends Component {
     var thisAux = this;
     recordVideo.stopRecording(function() {
       console.log("stopRecording...");
+      thisAux.props.setGrabando(false);
         // get audio data-URL
         recordVideo.getDataURL(function(audioDataURL) {
             var files = {
@@ -135,7 +139,7 @@ class Pregunta extends Component {
             audioDataURL = audioDataURL.split(',')[1]; //quitarle la parte "data:audio/wav;base64,"
             socket.emit('pregunta_audio', audioDataURL);
             thisAux.setState({ recording: false });
-            thisAux.setState({ esperandoRespuesta: true });
+            thisAux.props.setEsperandoRespuesta(true);
             
             if (mediaStream) mediaStream.getTracks()[0].stop();
         });
@@ -145,8 +149,18 @@ class Pregunta extends Component {
   render() {
     const { socket } = this.props;
 
+    var clasesBtn = "btnPreguntar";;
+    if(this.props.esperandoRespuesta){
+      clasesBtn += " esperandoResp";
+    }
+
+    var claseGrabando = "";
+    if(this.props.grabando){
+      claseGrabando = " grabando";
+    }
+
     var clasesEsp;
-    if(this.state.esperandoRespuesta){
+    if(this.props.esperandoRespuesta){
       clasesEsp = 'mostrar loading';
     }else{
       clasesEsp = 'ocultar';
@@ -186,11 +200,11 @@ class Pregunta extends Component {
           </div>  
           <form id="formPregunta" className="form-group text-center" onSubmit={this.handleSubmit}>  
             <input className="form-control" onChange={this.handleOnChange} type="text" placeholder="Haz una pregunta" name="pregunta" required/> 
-            <button id="btnPreguntar-escribir" type="submit" form="formPregunta" disabled={this.state.recording}>
+            <button id="btnPreguntar-escribir" className={clasesBtn} type="submit" form="formPregunta" disabled={this.state.recording}>
               <img src={iconoKeyboard} />
             </button> 
 
-            <button id="btnPreguntar-hablar" onClick={this.startRecord} type="button" disabled={this.state.recording}>
+            <button id="btnPreguntar-hablar" className={clasesBtn+claseGrabando} onClick={this.startRecord} type="button" disabled={this.state.recording}>
               <img src={iconoHablar} />
             </button>
           </form>
