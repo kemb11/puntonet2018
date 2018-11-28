@@ -52,6 +52,7 @@ class Cara extends Component {
       return(
         <div className={clases}>
           <ImageLoader
+            onClick0={this.props.clickPersonaje}
             src={"http://localhost:3005/imagenes/"+this.props.personaje.imagen}
             loading={() => 
               <div className={"cargando"}>

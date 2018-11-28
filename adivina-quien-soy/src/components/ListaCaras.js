@@ -23,12 +23,16 @@ class ListaCaras extends Component {
       var token = window.localStorage.getItem('token');
       console.log("cargar personajes...");
 
+      var thisAux = this;
       PostApi('personajes/partida', token).then((result) => {
-        const responseJson = result;
-        console.log("respuesta: "+JSON.stringify(responseJson));
+        const partidaJson = result;
+        console.log("respuesta: "+JSON.stringify(partidaJson));
 
-        this.setState({personajes: responseJson.personajes, filtrados: responseJson.user1.filtrados, cargados: true});
+        this.setState({personajes: partidaJson.personajes, filtrados: partidaJson.user1.filtrados, cargados: true});
           window.localStorage.setItem('enPartida', true);
+
+        var cantP = partidaJson.user1.cantPreguntas;
+        this.props.setCantPreg(cantP);
       });
     }
   }

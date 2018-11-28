@@ -24,8 +24,10 @@ class Partida extends Component {
       mensaje: "",
       showModal: false,
       cargandoModal: false,
-      cantPreg: false,
-      personaje: ''
+      cantPreg: "-",
+      personaje: '',
+      esperandoRespuesta: false,
+      grabando: false
     }
 
     //this.handleChange = this.handleChange.bind(this);
@@ -63,6 +65,12 @@ class Partida extends Component {
         })
         thisAux.setState({perdiste: true, mensaje: data.respuesta, personaje: data.personaje});
       }
+
+      // si respondio si o no, sumar preguntas hechas
+      if(data.noEntendio === false || data.noEntendio === undefined){        
+        var cantPreg = thisAux.state.cantPreg+1;
+        thisAux.setState({cantPreg: cantPreg});
+      }
     });
 
     if(token){
@@ -70,12 +78,16 @@ class Partida extends Component {
     }
   }
 
-  cargarCantPreg(token){
-    PostApi('usuarios/cantPreg', token).then((data) => {
-      console.log("cargarCantPreg: "+JSON.stringify(data));
+  setCantPreg = cantPreg =>{
+    this.setState({cantPreg: cantPreg});
+  }
 
-      this.setState({cantPreg: data.cantPreg});
-    });
+  setEsperandoRespuesta = estado =>{    
+    this.setState({esperandoRespuesta: estado});
+  }
+
+  setGrabando = estado =>{    
+    this.setState({grabando: estado});
   }
 
   handleSubmit(e){
@@ -118,6 +130,9 @@ class Partida extends Component {
       return <Redirect to={this.state.path} />;
     }
 
+    var cantPreguntas = "Preguntas: "+this.state.cantPreg+"/5";
+
+
     if(this.state.ganaste || this.state.perdiste){
       var nomP = this.state.personaje.nombre; // poner primer letra en mayuscula
       var apeP = this.state.personaje.apellido; // poner primer letra en mayuscula
@@ -133,6 +148,8 @@ class Partida extends Component {
       }else{
         ganoPerdio = this.state.mensaje;
       }
+
+      
       return (
           <div className="Partida">
             <Cabecera />
@@ -168,12 +185,21 @@ class Partida extends Component {
           <Cabecera />          
 
           <div className="container">
-            <ListaCaras socket={socket}/>
+            <ListaCaras socket={socket} setCantPreg={this.setCantPreg}/>
             <div className="row">
-              <div className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12"></div>
+              <div className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 text-center">
+                <h3 id="cantPreg">{cantPreguntas}</h3>
+              </div>
 
               <div className="col  col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center">
-                <Pregunta socket={socket} />
+                <Pregunta 
+                  socket={socket} 
+                  setEsperandoRespuesta={this.setEsperandoRespuesta} 
+                  esperandoRespuesta={this.state.esperandoRespuesta}
+                  setGrabando={this.setGrabando} 
+                  grabando={this.state.grabando}
+                  actualizarCantPreg={this.state.actualizarCantPreg}
+                />
               </div>
 
               <div id="divAbandonar" className="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 text-center">
