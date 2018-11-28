@@ -28,6 +28,10 @@ class VerPerfil extends Component {
 	render() {	
 		var informacion;
 		if(this.state.user !== null){
+			var total = this.state.user.ganadas + this.state.user.perdidas + this.state.user.abandonadas;
+			var ganadasprc = this.state.user.ganadas * 100 / total;
+			var perdidasprc = this.state.user.perdidas * 100 / total;
+			var abandonadasprc = this.state.user.abandonadas * 100 / total;
 			const options = {
 			theme: "dark2",
 			animationEnabled: true,
@@ -40,9 +44,9 @@ class VerPerfil extends Component {
 				indexLabel: "{y}%",
 				indexLabelPlacement: "inside",
 					dataPoints: [
-						{ label: "Ganadas",  y: this.state.user.ganadas  },
-						{ label: "Perdidas", y: this.state.user.perdidas  },
-						{ label: "Abandonadas", y: this.state.user.abandonadas  }
+						{ label: "Ganadas",  y: Math.round(ganadasprc)  },
+						{ label: "Perdidas", y: Math.round(perdidasprc)  },
+						{ label: "Abandonadas", y: Math.round(abandonadasprc) }
 						
 					]
 				}
